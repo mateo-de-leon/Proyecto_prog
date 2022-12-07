@@ -1,4 +1,4 @@
-package com.login;
+package login;
 
 import java.awt.Color;
 
@@ -10,8 +10,6 @@ public class Login extends javax.swing.JFrame {
         initComponents();
     }
     
-    @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         bg = new javax.swing.JPanel();
@@ -41,7 +39,7 @@ public class Login extends javax.swing.JFrame {
         bg.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         logo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/images/logo.png"))); // NOI18N
+        logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("recurs/logo.png"))); // NOI18N
         bg.add(logo, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 90, 290, 140));
 
         logoname.setBackground(new java.awt.Color(255, 255, 255));
@@ -52,7 +50,7 @@ public class Login extends javax.swing.JFrame {
         bg.add(logoname, new org.netbeans.lib.awtextra.AbsoluteConstraints(554, 250, 290, 20));
 
         citybg.setBackground(new java.awt.Color(0, 134, 190));
-        citybg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/images/city.png"))); // NOI18N
+        citybg.setIcon(new javax.swing.ImageIcon(getClass().getResource("recurs/city.png"))); // NOI18N
         bg.add(citybg, new org.netbeans.lib.awtextra.AbsoluteConstraints(548, 0, -1, 500));
 
         header.setBackground(new java.awt.Color(255, 255, 255));
@@ -113,7 +111,7 @@ public class Login extends javax.swing.JFrame {
         bg.add(header, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 840, 40));
 
         favicon.setFont(new java.awt.Font("Roboto Black", 1, 24)); // NOI18N
-        favicon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/images/favicon.png"))); // NOI18N
+        favicon.setIcon(new javax.swing.ImageIcon(getClass().getResource("recurs/favicon.png"))); // NOI18N
         favicon.setText("LOGO");
         bg.add(favicon, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
 
