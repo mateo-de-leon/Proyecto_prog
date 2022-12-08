@@ -27,17 +27,22 @@ public class Criptography {
      * @throws UnsupportedEncodingException
      * @throws NoSuchAlgorithmException
      */
-    public static SecretKeySpec generateKey(String key) throws UnsupportedEncodingException, NoSuchAlgorithmException {
+    private static String globalKey = "I am a secret key, lol!";
+
+    private static SecretKeySpec generateKey(String key) throws UnsupportedEncodingException, NoSuchAlgorithmException {
         byte[] Ekey = key.getBytes("UTF-8");
 
         MessageDigest sha = MessageDigest.getInstance("SHA-1");
 
         Ekey = sha.digest(Ekey);
-        Ekey = Arrays.copyOf(Ekey, 20);
+        Ekey = Arrays.copyOf(Ekey, 16);
 
         SecretKeySpec secretKey = new SecretKeySpec(Ekey, "AES");
 
         return secretKey;
+    }
+    public static String getGlobalKey() {
+        return globalKey;
     }
 
     /**

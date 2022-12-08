@@ -18,15 +18,12 @@ import javax.swing.SwingConstants;
 /**
  * @author SrBlackDEVs
  * 
- * Credit to Anthony Zabs on Youtube
+ * Credit to Anthony Zabs (Youtube) for the design
  */
 public class Login extends javax.swing.JFrame {
-
-	private ImageIcon logoIcon = new ImageIcon(Login.class.getResource("recurs/Logo.jpg"));
 	private ImageIcon backIcon = new ImageIcon(execLogin.class.getResource("recurs/gic.png"));
-	private ImageIcon faviconIcon = new ImageIcon(execLogin.class.getResource("recurs/favicon.png"));
     private JPanel bg;
-    private JLabel citybg;
+    private JLabel backbg;
     private JPanel exitBtn;
     private JLabel exitTxt;
     private JLabel favicon;
@@ -35,8 +32,6 @@ public class Login extends javax.swing.JFrame {
     private JSeparator jSeparator2;
     private JPanel loginBtn;
     private JLabel loginBtnTxt;
-    private JLabel logo;
-    private JLabel logoname;
     private JLabel passLabel;
     private JPasswordField passTxt;
     private JLabel title;
@@ -46,14 +41,16 @@ public class Login extends javax.swing.JFrame {
     
     public Login() {
         initComponents();
+
+        userTxt.requestFocus(); // To fix the place holders
+        userTxt.setText("");
+        userTxt.setForeground(Color.BLACK);
     }
     
     private void initComponents() {
 
         bg = new JPanel();
-        logo = new JLabel();
-        logoname = new JLabel();
-        citybg = new JLabel();
+        backbg = new JLabel();
         header = new JPanel();
         exitBtn = new JPanel();
         exitTxt = new JLabel();
@@ -74,25 +71,14 @@ public class Login extends javax.swing.JFrame {
         setResizable(false);
         
 
-        bg.setBackground(new java.awt.Color(255, 255, 255));
+        bg.setBackground(new Color(255, 255, 255));
         bg.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        logo.setHorizontalAlignment(SwingConstants.CENTER);
-        logo.setIcon(logoIcon);
-        bg.add(logo, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 90, 290, 140));
+        backbg.setBackground(new Color(0, 134, 190));
+        backbg.setIcon(backIcon);
+        bg.add(backbg, new org.netbeans.lib.awtextra.AbsoluteConstraints(548, 0, -1, 500));
 
-        logoname.setBackground(new Color(255, 255, 255));
-        logoname.setFont(new Font("Roboto Medium", 0, 18));
-        logoname.setForeground(new Color(255, 255, 255));
-        logoname.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        logoname.setText("NOMBRE EMPRESA");  // FIXME text
-        bg.add(logoname, new org.netbeans.lib.awtextra.AbsoluteConstraints(554, 250, 290, 20));
-
-        citybg.setBackground(new Color(0, 134, 190));
-        citybg.setIcon(backIcon);
-        bg.add(citybg, new org.netbeans.lib.awtextra.AbsoluteConstraints(548, 0, -1, 500));
-
-        header.setBackground(new java.awt.Color(255, 255, 255));
+        header.setBackground(new Color(255, 255, 255));
         header.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
                 headerMouseDragged(evt);
@@ -142,8 +128,8 @@ public class Login extends javax.swing.JFrame {
         bg.add(header, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 840, 40));
 
         favicon.setFont(new Font("Roboto Black", 1, 24));
-        favicon.setIcon(faviconIcon);
-        favicon.setText("Proyect Tech");
+        favicon.setIcon(null);
+        favicon.setText("HS Tech");
         bg.add(favicon, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
 
         title.setFont(new Font("Roboto Black", 1, 24));
@@ -185,12 +171,12 @@ public class Login extends javax.swing.JFrame {
         jSeparator2.setForeground(new Color(0, 0, 0));
         bg.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 350, 410, 20));
 
-        loginBtn.setBackground(new Color(0, 134, 190));
+        loginBtn.setBackground(new Color(12, 12, 12));
 
         loginBtnTxt.setFont(new Font("Roboto Condensed", 1, 14));
         loginBtnTxt.setForeground(new Color(255, 255, 255));
         loginBtnTxt.setHorizontalAlignment(SwingConstants.CENTER);
-        loginBtnTxt.setText("Login");
+        loginBtnTxt.setText("Sign in");
         loginBtnTxt.setCursor(new Cursor(Cursor.HAND_CURSOR));
         loginBtnTxt.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -252,11 +238,11 @@ public class Login extends javax.swing.JFrame {
     }
 
     private void loginBtnTxtMouseEntered(java.awt.event.MouseEvent evt) {
-        loginBtn.setBackground(new Color(0, 156, 223));
+        loginBtn.setBackground(new Color(30, 30, 30)); // Hover effect opacity
     }
 
     private void loginBtnTxtMouseExited(java.awt.event.MouseEvent evt) {
-        loginBtn.setBackground(new Color(0,134,190));
+        loginBtn.setBackground(new Color(12, 12, 12));
     }
 
     private void userTxtMousePressed(java.awt.event.MouseEvent evt) {
