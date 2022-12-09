@@ -5,7 +5,7 @@ package DB;
  */
 public class testing {
     public static void main(String[] args) {
-        getValues.setAutoDB();
-        System.out.print(getValues.testConnection());
+        
+        System.out.print(new getValues().testConnection());
     }
 }

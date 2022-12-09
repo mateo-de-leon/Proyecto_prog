@@ -39,10 +39,11 @@ public class getValues {
         db = genEncFile.getDecrpytedValues();
     }
     public static boolean testConnection() {
-        String url = "jdbc:mysql://" + db[3] + "/" + db[0] + "?allowPublicKeyRetrieval=true&useSSL=false";
+        setAutoDB();
+        String url = "jdbc:mysql://" + db[3] + "/" + db[0] + "?useSSL=false";
         try {
-            Class.forName("com.mysql.jdbc.Driver");
-            DriverManager.getConnection(url, db[1], db[2]);
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            DriverManager.getConnection(url, db[1], "mateo");        
         } catch (Exception e) {
             e.printStackTrace();
         }

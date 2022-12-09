@@ -81,12 +81,19 @@ public class Login extends javax.swing.JFrame {
         header.setBackground(new Color(255, 255, 255));
         header.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
-                headerMouseDragged(evt);
+                try {
+                    headerMouseDragged(evt);
+                } catch (InterruptedException e) {
+                }
             }
         });
         header.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                headerMousePressed(evt);
+                try {
+                    headerMousePressed(evt);
+                } catch(Exception e) {
+
+                }
             }
         });
 
@@ -212,12 +219,12 @@ public class Login extends javax.swing.JFrame {
         pack();
     } 
 
-    private void headerMousePressed(java.awt.event.MouseEvent evt) {
+    private void headerMousePressed(java.awt.event.MouseEvent evt) throws InterruptedException {
         mouseX = evt.getX();
         mouseY = evt.getY();
     }
 
-    private void headerMouseDragged(java.awt.event.MouseEvent evt) {
+    private void headerMouseDragged(java.awt.event.MouseEvent evt) throws InterruptedException {
         int x = evt.getXOnScreen();
         int y = evt.getYOnScreen();
         this.setLocation(x - mouseX, y - mouseY);
