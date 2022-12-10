@@ -40,12 +40,12 @@ public class getValues {
     }
     public static boolean testConnection() {
         setAutoDB();
-        String url = "jdbc:mysql://" + db[3] + "/" + db[0] + "?useSSL=false";
+        String url = "jdbc:mysql://" + db[3] + "/" + db[0] + "?useSSL=false&&allowPublicKeyRetrieval=true";
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             DriverManager.getConnection(url, db[1], "mateo");        
         } catch (Exception e) {
-            e.printStackTrace();
+            return false;
         }
         return true;
     }

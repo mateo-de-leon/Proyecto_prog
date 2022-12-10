@@ -65,8 +65,8 @@ public class genEncFile {
             int i = 0;
             while (sc.hasNextLine()) {
                 dbreaded[i] = sc.nextLine();
-                i = i++;
                 dbreaded[i] = Criptography.decrypt(dbreaded[i], Criptography.getGlobalKey());
+                i++;
             }
         } catch(Exception e) {
             e.printStackTrace();
