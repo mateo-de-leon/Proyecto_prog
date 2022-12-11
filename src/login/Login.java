@@ -5,6 +5,9 @@ import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 
 import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
@@ -15,12 +18,16 @@ import javax.swing.JSeparator;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import DB.DBConnection;
+
 /**
  * @author SrBlackDEVs
  * 
  * Credit to Anthony Zabs (Youtube) for the design
  */
-public class Login extends javax.swing.JFrame {
+public class Login extends javax.swing.JFrame{
+    private static String type;
+
 	private ImageIcon backIcon = new ImageIcon(execLogin.class.getResource("recurs/gic.png"));
     private JPanel bg;
     private JLabel backbg;
@@ -37,6 +44,7 @@ public class Login extends javax.swing.JFrame {
     private JLabel title;
     private JLabel userLabel;
     private JTextField userTxt;
+
     int mouseX, mouseY;
     
     public Login() {
@@ -174,7 +182,7 @@ public class Login extends javax.swing.JFrame {
             }
         });
         bg.add(passTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 320, 410, 30));
-
+        
         jSeparator2.setForeground(new Color(0, 0, 0));
         bg.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 350, 410, 20));
 
@@ -275,6 +283,56 @@ public class Login extends javax.swing.JFrame {
     }
 
     private void loginBtnTxtMouseClicked(java.awt.event.MouseEvent evt) {
-        System.out.println("Signing in");
+        try {
+            String preparedState1 = "SELECT user FROM login WHERE user='" + userTxt.getText() + "';";
+            String preparedState2 = "SELECT pass FROM login WHERE user='" + userTxt.getText() + "';";
+            String preparedState3 = "SELECT type FROM login WHERE user='" + userTxt.getText() + "';";
+
+            Connection conn = DBConnection.getConnection();
+
+            Statement state1 = conn.createStatement();
+            Statement state2 = conn.createStatement();
+            Statement state3 = conn.createStatement();
+        
+            ResultSet userR = state1.executeQuery(preparedState1);
+            ResultSet passR = state2.executeQuery(preparedState2);
+            ResultSet typeR = state3.executeQuery(preparedState3);
+
+            String user = "";
+            String pass = "";
+            String type = "";
+
+            if(userR.next()) {
+                user = userR.getString(1);
+            }
+            if(passR.next()) {
+                pass = passR.getString(1);
+            }
+            if(typeR.next()) {
+                type = typeR.getString(1);
+            }
+            if(user.equals(userTxt.getText())) {
+                char[] passwd = passTxt.getPassword();
+                String passwordDecrypted = new String(passwd);
+                /* Use a getText() with a password field is stupid.
+                 * If you want to use a getText() use a JTextField, is the same.
+                 * 
+                 * Security is important, you must use getPassword() and convert it to a String if is necessary
+                 */
+
+                if(pass.equals(passwordDecrypted)) {
+                    System.out.println("Logging in");
+                    dispose();
+                    try {
+                        new mainWindow.TabbedW().setVisible(true);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+        
     }
 }
