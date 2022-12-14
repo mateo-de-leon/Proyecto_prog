@@ -26,7 +26,7 @@ import DB.DBConnection;
  * Credit to Anthony Zabs (Youtube) for the design
  */
 public class Login extends javax.swing.JFrame{
-    private static String type;
+    private static String type, user, username;
 
 	private ImageIcon backIcon = new ImageIcon(execLogin.class.getResource("recurs/gic.png"));
     private JPanel bg;
@@ -253,7 +253,7 @@ public class Login extends javax.swing.JFrame{
     }
 
     private void loginBtnTxtMouseEntered(java.awt.event.MouseEvent evt) {
-        loginBtn.setBackground(new Color(30, 30, 30)); // Hover effect opacity
+        loginBtn.setBackground(new Color(50, 50, 50)); // Hover effect opacity
     }
 
     private void loginBtnTxtMouseExited(java.awt.event.MouseEvent evt) {
@@ -287,20 +287,21 @@ public class Login extends javax.swing.JFrame{
             String preparedState1 = "SELECT user FROM login WHERE user='" + userTxt.getText() + "';";
             String preparedState2 = "SELECT pass FROM login WHERE user='" + userTxt.getText() + "';";
             String preparedState3 = "SELECT type FROM login WHERE user='" + userTxt.getText() + "';";
+            String preparedState4 = "SELECT name FROM login WHERE user='" + userTxt.getText() + "';";
 
             Connection conn = DBConnection.getConnection();
 
             Statement state1 = conn.createStatement();
             Statement state2 = conn.createStatement();
             Statement state3 = conn.createStatement();
+            Statement state4 = conn.createStatement();
         
             ResultSet userR = state1.executeQuery(preparedState1);
             ResultSet passR = state2.executeQuery(preparedState2);
             ResultSet typeR = state3.executeQuery(preparedState3);
+            ResultSet usernameR = state4.executeQuery(preparedState4);
 
-            String user = "";
             String pass = "";
-            String type = "";
 
             if(userR.next()) {
                 user = userR.getString(1);
@@ -310,6 +311,9 @@ public class Login extends javax.swing.JFrame{
             }
             if(typeR.next()) {
                 type = typeR.getString(1);
+            }
+            if(usernameR.next()) {
+                username = usernameR.getString(1);
             }
             if(user.equals(userTxt.getText())) {
                 char[] passwd = passTxt.getPassword();
@@ -321,10 +325,9 @@ public class Login extends javax.swing.JFrame{
                  */
 
                 if(pass.equals(passwordDecrypted)) {
-                    System.out.println("Logging in");
                     dispose();
                     try {
-                        new mainWindow.TabbedW().setVisible(true);
+                        new Dashboard.execDashboard().setVisible(true);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -335,4 +338,7 @@ public class Login extends javax.swing.JFrame{
         }
         
     }
+    public static String getTypeUser() { return type; }
+    public static String getUser() { return user; }
+    public static String getUserName() { return username; }
 }

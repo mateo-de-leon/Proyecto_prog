@@ -99,7 +99,6 @@ public class Table extends JTable {
     public void setCellAlignment(int column, int align) {
         cell.setAlignment(column, align);
     }
-
     public void setColumnWidth(int column, int width) {
         getColumnModel().getColumn(column).setPreferredWidth(width);
         getColumnModel().getColumn(column).setMinWidth(width);
