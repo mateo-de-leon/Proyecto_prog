@@ -43,9 +43,16 @@ public class Menu extends JPanel {
     }
     public void initMenu(EventMenu event) {
         this.event = event;
-        if(/*login.Login.getTypeUser().equals("Director")*/true) {
-            addMenu(new ImageIcon(getClass().getResource("../icon/home.png")), "Dashboard", 0);
+        if(login.Login.getTypeUser().equals("Director")) {
+            addMenu(new ImageIcon(getClass().getResource("../icon/home.png")), "Home", 0);
             addMenu(new ImageIcon(getClass().getResource("../icon/adminUser.png")), "Admin user", 1);
+            addMenu(new ImageIcon(getClass().getResource("../icon/adminAbsence.png")), "Admin absences", 2);
+            addMenu(new ImageIcon(getClass().getResource("../icon/showAbsencesTeacher.png")), "Show absences", 3);
+            addMenu(new ImageIcon(getClass().getResource("../icon/adminTeacher.png")), "Admin teachers", 4);
+            addEmpty();
+            addMenu(new ImageIcon(getClass().getResource("../icon/logout.png")), "Logout", 6);
+        } else {
+            addMenu(new ImageIcon(getClass().getResource("../icon/home.png")), "Home", 0);
             addMenu(new ImageIcon(getClass().getResource("../icon/adminAbsence.png")), "Admin absences", 2);
             addMenu(new ImageIcon(getClass().getResource("../icon/showAbsencesTeacher.png")), "Show absences", 3);
             addMenu(new ImageIcon(getClass().getResource("../icon/adminTeacher.png")), "Admin teachers", 4);
