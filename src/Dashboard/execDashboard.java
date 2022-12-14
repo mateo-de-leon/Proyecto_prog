@@ -10,6 +10,9 @@ import Dashboard.component.Menu;
 import Dashboard.event.EventMenu;
 import Dashboard.form.Form_1;
 import Dashboard.form.Form_2;
+import Dashboard.form.Form_3;
+import Dashboard.form.Form_4;
+import Dashboard.form.Form_5;
 import Dashboard.swing.RoundPanel;
 
 
@@ -26,14 +29,25 @@ public class execDashboard extends javax.swing.JFrame {
         EventMenu event = new EventMenu() {
             @Override
             public void selected(int index) {
-                if (index == 0) {
-                    showForm(new Form_1());
-                } else if (index == 5) {
-                    System.exit(1);
-                } else if(index == 1) {
-                    showForm(new Form_2(index));
-                } else if(index == 3) {
-                    showAbsences.execView.main(null);
+                switch (index) {
+                    case 0:
+                        showForm(new Form_1());
+                        break;
+                    case 1:
+                        showForm(new Form_2(index));
+                        break;
+                    case 2: 
+                        showForm(new Form_3(index));
+                        break;
+                    case 3:
+                        showForm(new Form_4(index));
+                        break;
+                    case 4:
+                        showForm(new Form_5(index));
+                        break;
+                    case 6:
+                        System.exit(0);
+                        break;
                 }
             }
         };

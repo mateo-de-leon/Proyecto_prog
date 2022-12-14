@@ -3,6 +3,8 @@ package showAbsences;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -40,11 +42,38 @@ public class GUI extends JFrame {
         TableGUI.setColumnWidth(0, 50);
         TableGUI.setColumnWidth(2, 100);
         DefaultTableModel mode = (DefaultTableModel) TableGUI.getModel();
-        for (int i = 1; i <= 80; i++) {
-            mode.addRow(new Object[]{i, "Mateo De León", "2°IC 2°IA", "11/12/2022 13:00", "Medical License"});
-        }
+        LoadData("");
     }
+    private void LoadData(String where, Object... search) {
+        try {
+            DefaultTableModel model = (DefaultTableModel) TableGUI.getModel();
+            model.setRowCount(0);
 
+            PreparedStatement p = DB.DBConnection.getConnection().prepareStatement("select * from absences " + where);
+
+            for (int i = 0; i < search.length; i++) {
+                p.setObject(i + 1, search[i]);
+            }
+
+            ResultSet result = p.executeQuery();
+
+            while(result.next()) {
+                String name = result.getString("name");
+                String reason = result.getString("reason");
+                String groups = result.getString("GroupsAffected");
+                String dateI = result.getString("initDate");
+                String dateF = result.getString("finalDate");
+
+                model.addRow(new Object[] {TableGUI.getRowCount() + 1, name, groups, dateI, dateF, reason});
+            }
+
+            result.close();
+            p.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
     private void initComponents() {
 
         jScrollPane1 = new JScrollPane();
@@ -55,11 +84,11 @@ public class GUI extends JFrame {
 
             },
             new String [] {
-                "No", "Teacher", "Groups", "Date", "Reason"
+                "No", "Teacher", "Groups", "Initial date", "Final date", "Reason"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {

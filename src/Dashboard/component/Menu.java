@@ -50,7 +50,7 @@ public class Menu extends JPanel {
             addMenu(new ImageIcon(getClass().getResource("../icon/showAbsencesTeacher.png")), "Show absences", 3);
             addMenu(new ImageIcon(getClass().getResource("../icon/adminTeacher.png")), "Admin teachers", 4);
             addEmpty();
-            addMenu(new ImageIcon(getClass().getResource("../icon/logout.png")), "Logout", 5);
+            addMenu(new ImageIcon(getClass().getResource("../icon/logout.png")), "Logout", 6);
         }
     }
 

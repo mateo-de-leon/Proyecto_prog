@@ -19,7 +19,7 @@ import Dashboard.Searchbar.textfield.SearchOption;
 import Dashboard.Searchbar.textfield.TextFieldSearchOption;
 import showAbsences.Table;
 
-public class Form_2 extends JPanel {
+public class Form_5 extends JPanel {
     private JScrollPane jScrollPane1;
     private TextFieldSearchOption txt;
     private Table TableGUI;
@@ -31,7 +31,7 @@ public class Form_2 extends JPanel {
     private JPanel delRowBtn;
     private JLabel delRowTxt;
 
-    public Form_2(int index) {
+    public Form_5(int index) {
         initComponents(index);
         setOpaque(false);
         setLayout(null);
@@ -57,7 +57,6 @@ public class Form_2 extends JPanel {
         });
         txt.addOption(new SearchOption("Name", new ImageIcon(getClass().getResource("../icon/searchByUser.png"))));
         txt.addOption(new SearchOption("CI", new ImageIcon(getClass().getResource("../icon/searchByCI.png"))));
-        txt.addOption(new SearchOption("Type", new ImageIcon(getClass().getResource("../icon/searchByType.png"))));
 
         LoadData("");
     }
@@ -67,7 +66,7 @@ public class Form_2 extends JPanel {
             DefaultTableModel model = (DefaultTableModel) TableGUI.getModel();
             model.setRowCount(0);
 
-            PreparedStatement p = DB.DBConnection.getConnection().prepareStatement("select * from login " + where);
+            PreparedStatement p = DB.DBConnection.getConnection().prepareStatement("select * from teacher " + where);
 
             for (int i = 0; i < search.length; i++) {
                 p.setObject(i + 1, search[i]);
@@ -78,10 +77,8 @@ public class Form_2 extends JPanel {
             while(result.next()) {
                 String name = result.getString("name");
                 String ci = result.getString("ci");
-                String password = result.getString("pass");
-                String type = result.getString("type");
 
-                model.addRow(new Object[] {TableGUI.getRowCount() + 1, name, ci, password, type});
+                model.addRow(new Object[] {TableGUI.getRowCount() + 1, name, ci});
             }
 
             result.close();
@@ -224,10 +221,10 @@ public class Form_2 extends JPanel {
 
             },
             new String [] {
-                "No", "Name","CI","Password", "Type"}
+                "No", "Name","CI"}
         ) {
             boolean[] canEdit = new boolean [] {
-                false, true, true, true, true
+                false, true, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -259,8 +256,6 @@ public class Form_2 extends JPanel {
                 LoadData("where name like ?", text);
             }else if(option == 1) {
                 LoadData("where ci like ?", text);
-            }else if(option == 2) {
-                LoadData("where type like ?", text);
             }
             
         }
@@ -286,7 +281,7 @@ public class Form_2 extends JPanel {
     }
     private void addRowTxtMouseClicked(java.awt.event.MouseEvent evt) {
         DefaultTableModel model = (DefaultTableModel) TableGUI.getModel();
-        model.addRow(new Object[] {model.getRowCount() + 1, "", "","", "", ""});
+        model.addRow(new Object[] {model.getRowCount() + 1, "", ""});
     }
 
     private void delRowTxtMouseEntered(java.awt.event.MouseEvent evt) {

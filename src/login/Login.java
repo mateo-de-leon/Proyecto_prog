@@ -44,7 +44,8 @@ public class Login extends javax.swing.JFrame{
     private JLabel title;
     private JLabel userLabel;
     private JTextField userTxt;
-
+    private JPanel showAbsBtn;
+    private JLabel showAbsTxt;
     int mouseX, mouseY;
     
     public Login() {
@@ -72,6 +73,8 @@ public class Login extends javax.swing.JFrame{
         jSeparator2 = new JSeparator();
         loginBtn = new JPanel();
         loginBtnTxt = new JLabel();
+        showAbsBtn = new JPanel();
+        showAbsTxt = new JLabel();
 
         setDefaultCloseOperation(3);
         setLocationByPlatform(true);
@@ -218,6 +221,39 @@ public class Login extends javax.swing.JFrame{
 
         bg.add(loginBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 400, 130, 40));
 
+
+       showAbsBtn.setBackground(new Color(12, 12, 12));
+
+        showAbsTxt.setFont(new Font("Roboto Condensed", 1, 14));
+        showAbsTxt.setForeground(new Color(255, 255, 255));
+        showAbsTxt.setHorizontalAlignment(SwingConstants.CENTER);
+        showAbsTxt.setText("Continue without login");
+        showAbsTxt.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        showAbsTxt.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                showAbsMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                showAbsMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                showAbsMouseExited(evt);
+            }
+        });
+
+        GroupLayout showAbsBtnLayout = new GroupLayout(showAbsBtn);
+        showAbsBtn.setLayout(showAbsBtnLayout);
+        showAbsBtnLayout.setHorizontalGroup(
+            showAbsBtnLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addComponent(showAbsTxt, GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
+        );
+        showAbsBtnLayout.setVerticalGroup(
+            showAbsBtnLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addComponent(showAbsTxt, GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+        );
+
+        bg.add(showAbsBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 400, 200, 40));
+
         GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING).addComponent(bg, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -338,6 +374,18 @@ public class Login extends javax.swing.JFrame{
         }
         
     }
+    private void showAbsMouseEntered(java.awt.event.MouseEvent evt) {
+        showAbsBtn.setBackground(new Color(50, 50, 50)); // Hover effect opacity
+    }
+
+    private void showAbsMouseExited(java.awt.event.MouseEvent evt) {
+        showAbsBtn.setBackground(new Color(12, 12, 12));
+    }
+    private void showAbsMouseClicked(java.awt.event.MouseEvent evt) {
+        dispose();
+        showAbsences.execView.main(null);
+    }
+
     public static String getTypeUser() { return type; }
     public static String getUser() { return user; }
     public static String getUserName() { return username; }

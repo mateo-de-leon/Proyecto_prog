@@ -19,11 +19,10 @@ import Dashboard.Searchbar.textfield.SearchOption;
 import Dashboard.Searchbar.textfield.TextFieldSearchOption;
 import showAbsences.Table;
 
-public class Form_2 extends JPanel {
+public class Form_3 extends JPanel {
     private JScrollPane jScrollPane1;
     private TextFieldSearchOption txt;
     private Table TableGUI;
-
     private JPanel saveVaBtn;
     private JLabel saveVaTxt;
     private JPanel addRowBtn;
@@ -31,7 +30,7 @@ public class Form_2 extends JPanel {
     private JPanel delRowBtn;
     private JLabel delRowTxt;
 
-    public Form_2(int index) {
+    public Form_3(int index) {
         initComponents(index);
         setOpaque(false);
         setLayout(null);
@@ -55,9 +54,9 @@ public class Form_2 extends JPanel {
                 txt.setHint("Search by " + option.getName() + "...");
             }
         });
-        txt.addOption(new SearchOption("Name", new ImageIcon(getClass().getResource("../icon/searchByUser.png"))));
+        txt.addOption(new SearchOption("Teacher name", new ImageIcon(getClass().getResource("../icon/searchByUser.png"))));
         txt.addOption(new SearchOption("CI", new ImageIcon(getClass().getResource("../icon/searchByCI.png"))));
-        txt.addOption(new SearchOption("Type", new ImageIcon(getClass().getResource("../icon/searchByType.png"))));
+        txt.addOption(new SearchOption("Date", new ImageIcon(getClass().getResource("../icon/searchByUser.png"))));
 
         LoadData("");
     }
@@ -67,7 +66,7 @@ public class Form_2 extends JPanel {
             DefaultTableModel model = (DefaultTableModel) TableGUI.getModel();
             model.setRowCount(0);
 
-            PreparedStatement p = DB.DBConnection.getConnection().prepareStatement("select * from login " + where);
+            PreparedStatement p = DB.DBConnection.getConnection().prepareStatement("select * from absences " + where);
 
             for (int i = 0; i < search.length; i++) {
                 p.setObject(i + 1, search[i]);
@@ -78,10 +77,12 @@ public class Form_2 extends JPanel {
             while(result.next()) {
                 String name = result.getString("name");
                 String ci = result.getString("ci");
-                String password = result.getString("pass");
-                String type = result.getString("type");
+                String groups = result.getString("GroupsAffected");
+                String dateI = result.getString("initDate");
+                String dateF = result.getString("finalDate");
+                String reason = result.getString("reason");
 
-                model.addRow(new Object[] {TableGUI.getRowCount() + 1, name, ci, password, type});
+                model.addRow(new Object[] {TableGUI.getRowCount() + 1, name, ci, groups, dateI, dateF, reason});
             }
 
             result.close();
@@ -218,16 +219,14 @@ public class Form_2 extends JPanel {
         txt = new TextFieldSearchOption();
         txt.setBounds(0, 0, 1100, 35);
 
-
         TableGUI.setModel(new DefaultTableModel(
             new Object [][] {
-
             },
             new String [] {
-                "No", "Name","CI","Password", "Type"}
+                "No", "Name","CI","Groups Affected", "Initial date", "Final date", "Reason"}
         ) {
             boolean[] canEdit = new boolean [] {
-                false, true, true, true, true
+                false, true, true, true, true, true, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -260,12 +259,11 @@ public class Form_2 extends JPanel {
             }else if(option == 1) {
                 LoadData("where ci like ?", text);
             }else if(option == 2) {
-                LoadData("where type like ?", text);
+                LoadData("where initDate or finalDate like ?", text);
             }
             
         }
     }
-
     private void saveVaTxtMouseEntered(java.awt.event.MouseEvent evt) {
         saveVaBtn.setBackground(new Color(50, 50, 50)); // Hover effect opacity
     }
@@ -273,7 +271,7 @@ public class Form_2 extends JPanel {
         saveVaBtn.setBackground(new Color(12, 12, 12));
     }
     private void saveVaTxtMouseClicked(java.awt.event.MouseEvent evt) {
-        new insertAbsences(TableGUI);
+        new insertUser(TableGUI);
     }
 
 
@@ -298,5 +296,6 @@ public class Form_2 extends JPanel {
     private void delRowTxtMouseClicked(java.awt.event.MouseEvent evt) {
         DefaultTableModel model = (DefaultTableModel) TableGUI.getModel();
         model.removeRow(TableGUI.getSelectedRow());
+
     }
 }
