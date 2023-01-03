@@ -3,9 +3,18 @@ package DB;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
-public class DBConnection {
+public class DBConnection implements Runnable {
     private static Connection connection;
     private static String[] db = new String[4];
+
+    Thread t1;
+
+    public DBConnection() {
+        t1 = new Thread(this);
+        t1.start();
+        t1.setPriority(1);
+    }
+
 
     private static void connectToDB() {
         try {
@@ -17,6 +26,7 @@ public class DBConnection {
             connection = DriverManager.getConnection(url, db[1], db[2]);
         } catch(Exception e) { e.printStackTrace(); }
     }
+
     public static Connection getConnection() {
         for (int i = 0; i < db.length; i++) {
             if(db[i] == null) {
@@ -27,6 +37,18 @@ public class DBConnection {
         }
 
         return connection;
+    }
+    @Override
+    public void run() {
+        connectToDB();
+        try {
+            Thread.sleep(5000);
+            getConnection().close();
+            connectToDB();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
     }
 
 }

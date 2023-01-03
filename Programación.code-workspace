@@ -11,13 +11,13 @@
 		"java.project.outputPath": "bin",
 		"java.project.referencedLibraries": {
 			"include": [
-				"lib/*.jar"
+				"lib/*.jar",
+				"c:\\Users\\SrBlack\\Downloads\\flatlaf-demo-3.0.jar"
 			],
 			"exclude": [
 				"c:\\Programación\\lib\\mysql-connector-java-5.1.47.jar",
-				"c:\\Programación\\lib\\mysql-connector-java-5.1.47.jar",
-				"c:\\Programación\\lib\\mysql-connector-java-5.1.47.jar",
-				"c:\\Programación\\lib\\mysql-connector-java-5.1.47.jar"
+				"c:\\Programación\\lib\\flatlaf-3.0.jar",
+				"c:\\Programación\\lib\\flatlaf-3.0.jar"
 			]
 		},
 		"java.jdt.ls.vmargs": "-XX:+UseParallelGC -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90 -Dsun.zip.disableMemoryMapping=true -Xmx2G -Xms100m -Xlog:disable",

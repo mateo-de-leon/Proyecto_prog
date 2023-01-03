@@ -365,17 +365,21 @@ public class Login extends javax.swing.JFrame{
                     try {
                         new Dashboard.execDashboard().setVisible(true);
                     } catch (Exception e) {
-                        e.printStackTrace();
+                        Messages.Msg.ShowErrorMsg("Error starting app.", "Unknow error");
                     }
+                } else {
+                    Messages.Msg.ShowErrorMsg("Incorrect password for this user", "Bad password");
                 }
+            } else {
+                Messages.Msg.ShowErrorMsg("This user doesn't exists", "Bad user");
             }
         } catch(Exception e) {
-            e.printStackTrace();
+            Messages.Msg.ShowErrorMsg("Error connecting with the Database. \nTry again or restart the app.", "Database error");
         }
         
     }
     private void showAbsMouseEntered(java.awt.event.MouseEvent evt) {
-        showAbsBtn.setBackground(new Color(50, 50, 50)); // Hover effect opacity
+        showAbsBtn.setBackground(new Color(70, 70, 70)); // Hover effect opacity
     }
 
     private void showAbsMouseExited(java.awt.event.MouseEvent evt) {

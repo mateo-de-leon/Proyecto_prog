@@ -2,9 +2,6 @@ package Dashboard.form;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-
-import javax.swing.JOptionPane;
 
 import showAbsences.Table;
 
@@ -18,7 +15,6 @@ public class insertUser extends Thread{
         setPriority(1); // Minium priority
     }
     public void run() {
-        ResultSet result;
         boolean status = true;
 
         for (int index = 0; index < table.getRowCount(); index++) {
@@ -42,16 +38,25 @@ public class insertUser extends Thread{
                 p.setString(3, (String) table.getValueAt(index, 3));
                 p.setString(4, (String) table.getValueAt(index, 4));
                 p.setString(5, (String) table.getValueAt(index, 5));
-                d.executeUpdate();
-                p.executeUpdate();
+
+                if(login.Login.getUser() == table.getValueAt(index, 1)) {
+                    Messages.Msg.ShowOkMsg("You can't delete the user that you are using", "Error deleting user");
+                } else {
+                    if(login.Login.getTypeUser().equals("Director")) {
+                        Messages.Msg.ShowErrorMsg("You can't delete the user of a director", "Error deleting user");
+                    } else {
+                        d.executeUpdate();
+                        p.executeUpdate();
+                    }
+                }
 
             } catch(Exception e) {
                 e.printStackTrace();
                 status = false;
-                JOptionPane.showMessageDialog(null, "Existent user or incorrect values", "Error creating user", JOptionPane.ERROR_MESSAGE);
+                Messages.Msg.ShowErrorMsg("Existent user or incorrect values", "Error creating user");
                 break;
             }
         }
-        if(status) { JOptionPane.showMessageDialog(null, "Data saved.", "Saved", JOptionPane.INFORMATION_MESSAGE);}
+        if(status) { Messages.Msg.ShowOkMsg("Data saved correctly", "Data saved"); }
     }
 }

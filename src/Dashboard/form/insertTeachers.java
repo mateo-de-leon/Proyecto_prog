@@ -2,9 +2,6 @@ package Dashboard.form;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-
-import javax.swing.JOptionPane;
 
 import showAbsences.Table;
 
@@ -18,7 +15,6 @@ public class insertTeachers extends Thread{
         setPriority(1); // Minium priority
     }
     public void run() {
-        ResultSet result;
         boolean status = true;
 
         for (int index = 0; index < table.getRowCount(); index++) {
@@ -41,10 +37,10 @@ public class insertTeachers extends Thread{
             } catch(Exception e) {
                 e.printStackTrace();
                 status = false;
-                JOptionPane.showMessageDialog(null, "Existent teacher or incorrect values", "Error creating user", JOptionPane.ERROR_MESSAGE);
+                Messages.Msg.ShowErrorMsg("Existent teacher or incorrect values", "Error adding teacher");
                 break;
             }
         }
-        if(status) { JOptionPane.showMessageDialog(null, "Data saved.", "Saved", JOptionPane.INFORMATION_MESSAGE);}
+        if(status) { Messages.Msg.ShowOkMsg("Data saved correctly", "Data saved"); }
     }
 }

@@ -4,8 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-import javax.swing.JOptionPane;
-
 import showAbsences.Table;
 
 public class insertAbsences extends Thread{
@@ -54,17 +52,17 @@ public class insertAbsences extends Thread{
                     p.executeUpdate();
                 } else {
                     status = false;
-                    JOptionPane.showMessageDialog(null, "Inexistent teacher", "Error saving values", JOptionPane.ERROR_MESSAGE);
+                    Messages.Msg.ShowErrorMsg("Inexistent teacher", "Error saving values");
                     break;
                 }
 
             } catch(Exception e) {
                 e.printStackTrace();
                 status = false;
-                JOptionPane.showMessageDialog(null, "Please check the date, please use format YYYY-MM-DD", "Error saving values", JOptionPane.ERROR_MESSAGE);
+                Messages.Msg.ShowErrorMsg("Please check the date, please use format YYYY-MM-DD", "Error saving values");
                 break;
             }
         }
-        if(status) { JOptionPane.showMessageDialog(null, "Data saved.", "Saved", JOptionPane.INFORMATION_MESSAGE);}
+        if(status) { Messages.Msg.ShowOkMsg("Data saved correctly", "Data saved"); }
     }
 }

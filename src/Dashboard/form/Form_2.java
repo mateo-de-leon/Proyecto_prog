@@ -273,7 +273,7 @@ public class Form_2 extends JPanel {
         saveVaBtn.setBackground(new Color(12, 12, 12));
     }
     private void saveVaTxtMouseClicked(java.awt.event.MouseEvent evt) {
-        new insertAbsences(TableGUI);
+        new insertUser(TableGUI);
     }
 
 

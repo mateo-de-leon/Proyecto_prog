@@ -10,5 +10,6 @@
 	<classpathentry kind="lib" path="lib/mysql-connector-j-8.0.31.jar"/>
 	<classpathentry kind="lib" path="lib/TimingFramework-0.55.jar"/>
 	<classpathentry kind="lib" path="lib/miglayout-4.0.jar"/>
+	<classpathentry kind="lib" path="lib/flatlaf-3.0.jar" />
 	<classpathentry kind="output" path="bin"/>
 </classpath>
